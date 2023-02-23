@@ -77,7 +77,8 @@ const tabsContainer =
   document.querySelector('.operations__tab-container');
 const tabsContent =
   document.querySelectorAll('.operations__content');
-//Event Delegetion
+
+//// Event Delegetion
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
   console.log(clicked);
@@ -87,7 +88,7 @@ tabsContainer.addEventListener('click', function (e) {
   tabs.forEach(t => t.classList.remove('operations__tab--active'));
   // ACtive Tab
   clicked.classList.add('operations__tab--active');
-  //Active Content Area
+  //Active Content Area  // dataset.tab---
   console.log(clicked.dataset.tab)
   tabsContent.forEach(
     op => op.classList.remove('operations__content--active'));
