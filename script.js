@@ -8,6 +8,13 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.getElementById('section--1');
+const nav = document.querySelector('.nav');
+//Tabs
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer =
+  document.querySelector('.operations__tab-container');
+const tabsContent =
+  document.querySelectorAll('.operations__content');
 
 ///////////////////////////////////////
 // Modal window
@@ -72,16 +79,11 @@ document.querySelector('.nav__links').addEventListener
   });
 
 //Tabbed Content - Operations__Content
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer =
-  document.querySelector('.operations__tab-container');
-const tabsContent =
-  document.querySelectorAll('.operations__content');
 
 //// Event Delegetion
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
-  console.log(clicked);
+  // console.log(clicked);
   // Guard Clause
   if (!clicked) return;
   //Remove active classes
@@ -89,19 +91,46 @@ tabsContainer.addEventListener('click', function (e) {
   // ACtive Tab
   clicked.classList.add('operations__tab--active');
   //Active Content Area  // dataset.tab---
-  console.log(clicked.dataset.tab)
+  // console.log(clicked.dataset.tab)
   tabsContent.forEach(
     op => op.classList.remove('operations__content--active'));
   document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 });
 
+////// Menu Fade Animations
+const handleHover = function (e) { //function (e, opacity)
+  // console.log(this, e.currentTarget);
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav')
+      .querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+    siblings.forEach(el => {
+      if (el !== link)
+        el.style.opacity = this; //opacity this oldu bind yüzünden
+    })
+    logo.style.opacity = this;//function.bind(x)
+  }
+}
+//// Passing argument into handler
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+nav.addEventListener('mouseout', handleHover.bind(1));
 
+// nav.addEventListener('mouseout', function (e) {
+//   if (e.target.classList.contains('nav__link')) {
+//     const link = e.target;
+//     const siblings = e.target.closest('.nav')
+//       .querySelectorAll('.nav__link');
+//     const logo = link.closest('.nav').querySelector('img');
+//     siblings.forEach(el => {
+//       if (el !== link)
+//         el.style.opacity = 1;
+//     })
+//     logo.style.opacity = 1;
+//   }
+// });
 
-
-
-
-
-
+// 196
 
 
 
