@@ -71,6 +71,38 @@ document.querySelector('.nav__links').addEventListener
     }
   });
 
+//Tabbed Content - Operations__Content
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer =
+  document.querySelector('.operations__tab-container');
+const tabsContent =
+  document.querySelectorAll('.operations__content');
+//Event Delegetion
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+  console.log(clicked);
+  // Guard Clause
+  if (!clicked) return;
+  //Remove active classes
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  // ACtive Tab
+  clicked.classList.add('operations__tab--active');
+  //Active Content Area
+  console.log(clicked.dataset.tab)
+  tabsContent.forEach(
+    op => op.classList.remove('operations__content--active'));
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
+});
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -245,7 +277,7 @@ document.querySelector('.nav').addEventListener(
     console.log('Nav', e.target, e.currentTarget)
   });
 
-*/
+
 const h1 = document.querySelector('h1');
 
 ///// Going Downwards: child--------------------------
@@ -277,6 +309,10 @@ console.log(h1.parentElement.children);
 [...h1.parentElement.children].forEach(function (el) {
   if (el !== h1) el.style.transform = 'scale(0.5)'
 });
+
+*/
+
+
 
 
 
