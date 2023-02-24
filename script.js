@@ -67,12 +67,12 @@ btnScrollTo.addEventListener('click', function (e) {
 document.querySelector('.nav__links').addEventListener
   ('click', function (e) {
     e.preventDefault();
-    console.log(e.target);
+    // console.log(e.target);
 
     //Matching strtegy
     if (e.target.classList.contains('nav__link')) {
       const id = e.target.getAttribute('href');
-      console.log(id);
+      // console.log(id);
       document.querySelector(id)
         .scrollIntoView({ behavior: 'smooth' })
     }
@@ -147,12 +147,6 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 //     console.log(entry)
 //   })
 // };
-
-// const obsOptions = {
-//   root: null,
-//   threshold: [0, 0.2],
-// };
-
 // const observer =
 //   new IntersectionObserver(obsCallback, obsOptions);
 // observer.observe(section1);
@@ -176,13 +170,14 @@ const headerObserver = new IntersectionObserver(stickyNav,
   });
 headerObserver.observe(header);
 
+
 //// Reveal Sections Scrolling
+
 const allSections = document.querySelectorAll('.section');
 
 const revealSection = function (entries, observer) {
   const [entry] = entries;
   // console.log(entry);
-
   if (!entry.isIntersecting) return;
   entry.target.classList.remove('section--hidden');
   observer.unobserve(entry.target);
@@ -195,10 +190,12 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden'); ??? for now
 });
+
+
 //////////////
-/// Lazy Loading Images
+////////// Lazy Loading Images--
 const imgTarget = document.querySelectorAll('img[data-src]');
 console.log(imgTarget);
 
@@ -222,6 +219,82 @@ const imgObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTarget.forEach(img => imgObserver.observe(img));
+
+
+/////
+//// Slider Component
+
+const slides = document.querySelectorAll('.slide');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+let curSlide = 0;
+const maxSlide = slides.length;
+
+const slider = document.querySelector('.slider');
+slider.style.transform = 'scale(0.4) translateX(-850px)';
+slider.style.overflow = 'visible';
+
+slides.forEach((s, i) =>
+  s.style.transform = `translateX(${100 * i}%)`)
+// 0%, 100%, 200%, 300%
+
+const goToSlide = function (slide) {
+  slides.forEach((s, i) =>
+    s.style.transform =
+    `translateX(${100 * (i - slide)}%)`)
+};
+//Next Slide
+btnRight.addEventListener('click', function () {
+  if (curSlide === maxSlide - 1) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+
+  goToSlide(curSlide);
+});
+
+
+//// 
+// const cards = document.querySelectorAll('.card');
+
+// const observer = new IntersectionObserver(entries => {
+//   entries.forEach(entry => {
+//     entry.target.classList.toggle('show', entry.isIntersecting)
+//     // if (entry.isIntersecting) observer.unobserve(entry.target);
+//   })
+//   console.log(entries)
+// }, {
+//   threshold: .5,
+//   // root:null  ,
+//   // rootMargin: '-100px'
+// });
+
+// const lastCardObserver = new IntersectionObserver(entries => {
+//   const lastCard = entries[0]
+//   if (!lastCard.isIntersecting) return;
+//   loadNewCards()
+//   lastCardObserver.unobserve(lastCard.target)
+//   lastCardObserver.observe(document.querySelector('.card:last-child'))
+// }, { rootMargin: '100px' })
+
+// lastCardObserver.observe(document.querySelector('.card:last-child'))
+
+// cards.forEach(card => {
+//   observer.observe(card)
+// });
+// const cardContainer = document.querySelector('.card-container')
+
+// function loadNewCards() {
+//   for (let i = 0; i < 10; i++) {
+//     const card = document.createElement('div');
+//     card.textContent = 'New Card';
+//     card.classList.add('card')
+//     observer.observe(card)
+//     cardContainer.append(card)
+//   }
+// }
 
 
 
