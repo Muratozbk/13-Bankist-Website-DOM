@@ -19,6 +19,7 @@ const tabsContent =
 ///////////////////////////////////////
 // Modal window
 
+
 const openModal = function (e) {
   e.preventDefault();
   modal.classList.remove('hidden');
@@ -30,9 +31,8 @@ const closeModal = function () {
   overlay.classList.add('hidden');
 };
 
-btnsOpenModal.forEach(btn => btn.addEventListener('click'
-  , openModal));
-
+btnsOpenModal.forEach(btn =>
+  btn.addEventListener('click', openModal));
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
@@ -116,20 +116,6 @@ const handleHover = function (e) { //function (e, opacity)
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
 
-// nav.addEventListener('mouseout', function (e) {
-//   if (e.target.classList.contains('nav__link')) {
-//     const link = e.target;
-//     const siblings = e.target.closest('.nav')
-//       .querySelectorAll('.nav__link');
-//     const logo = link.closest('.nav').querySelector('img');
-//     siblings.forEach(el => {
-//       if (el !== link)
-//         el.style.opacity = 1;
-//     })
-//     logo.style.opacity = 1;
-//   }
-// });
-
 //////// Sticky Navigation Bar 
 // const initialCoords = section1.getBoundingClientRect();
 // console.log(initialCoords)
@@ -197,11 +183,11 @@ allSections.forEach(function (section) {
 //////////////
 ////////// Lazy Loading Images--
 const imgTarget = document.querySelectorAll('img[data-src]');
-console.log(imgTarget);
+// console.log(imgTarget);
 
 const loadImg = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
 
   if (!entry.isIntersecting) return;
   // Replace src with data-src
@@ -555,9 +541,19 @@ console.log(h1.parentElement.children);
 
 */
 
+// document.addEventListener('DOMContentLoaded', function (e) {
+//   console.log('HTML parsed and DOM tree built!', e);
+// });
 
+// window.addEventListener('load', function (e) {
+//   console.log('Page fully loaded', e)
+// });
 
-
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   console.log(e);
+//   e.returnValue = '';
+// });
 
 
 
