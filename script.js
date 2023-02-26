@@ -175,7 +175,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
-  section.classList.add('section--hidden') // ??? for now
+  // section.classList.add('section--hidden') // ??? for now
 });
 
 
@@ -183,54 +183,32 @@ allSections.forEach(function (section) {
 ////////// Lazy Loading Images--
 
 const imgTarget = document.querySelectorAll('img[data-src]');
-
+// console.log(imgTarget);
 const loadImg = function (entries, observer) {
   const [entry] = entries;
+  // console.log(entry);
+
   if (!entry.isIntersecting) return;
+  // Replace src with data-src
   entry.target.src = entry.target.dataset.src;
+  //Load eventhandler - filter gone after load done
   entry.target.addEventListener('load', function () {
-    entry.target.classList.remove('lazy-img')
-  })
+    entry.target.classList.remove('lazy-img');
+  });
   observer.unobserve(entry.target);
 };
 
-const imgObserver = new IntersectionObserver(loadImg,
-  { rootMargin: '200px' });
-
-imgTarget.forEach(img => imgObserver.observe(img))
-
-
-
-
-// const imgTarget = document.querySelectorAll('img[data-src]');
-// // console.log(imgTarget);
-
-// const loadImg = function (entries, observer) {
-//   const [entry] = entries;
-//   // console.log(entry);
-
-//   if (!entry.isIntersecting) return;
-//   // Replace src with data-src
-//   entry.target.src = entry.target.dataset.src;
-//   //Load eventhandler - filter gone after load done
-//   entry.target.addEventListener('load', function () {
-//     entry.target.classList.remove('lazy-img');
-//   });
-//   observer.unobserve(entry.target);
-// };
-
-// const imgObserver = new IntersectionObserver(loadImg, {
-//   root: null, threshold: 0,
-//   rootMargin: '200px'  //erken yükleme yapması için!
-// });
-
-// imgTarget.forEach(img => imgObserver.observe(img));
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null, threshold: 0,
+  rootMargin: '200px'  //erken yükleme yapması için!
+});
+imgTarget.forEach(img => imgObserver.observe(img));
 
 
 /////
 //// Slider Component
-const slider = function () {
 
+const slider = function () {
 
   const slides = document.querySelectorAll('.slide');
   const btnLeft = document.querySelector('.slider__btn--left');
@@ -251,7 +229,7 @@ const slider = function () {
         `<button class='dots__dot'
      data-slide= '${i}'></button>`);
     })
-  }
+  };
 
   const activateDot = function (slide) {
     document.querySelectorAll('.dots__dot')
@@ -313,6 +291,42 @@ const slider = function () {
   });
 };
 slider();
+
+//// Sticky Back To Page Top
+
+const mybutton = document.querySelector('.upArrow');
+const scrollFunction = function () {
+  if (document.documentElement.scrollTop > 500) {
+    mybutton.style.display = 'block';
+  } else { mybutton.style.display = 'none' }
+}
+window.onscroll = () => scrollFunction()
+
+mybutton.addEventListener('click', function () {
+  document.documentElement.scrollTop = 0;
+})
+
+
+
+
+
+
+// const mybutton = document.querySelector('.upArrow');
+// window.onscroll = () => scrollFunction();
+// const scrollFunction = function () {
+//   if (document.documentElement.scrollTop > 500) {
+//     mybutton.style.display = 'block';
+//   } else { mybutton.style.display = 'none' }
+// };
+
+// mybutton.addEventListener('click', function () {
+//   document.documentElement.scrollTop = 0;
+// })
+
+
+
+
+
 
 
 ////

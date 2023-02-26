@@ -687,6 +687,17 @@ h4 {
   font-weight: 400;
 }
 
+.upArrow {
+  position: fixed;
+  bottom: 4%;
+  right: 4%;
+  font-size: 5rem;
+  cursor: pointer;
+  color: darkgrey;
+  padding: 0 5px;
+  line-height: normal;
+}
+
 /* .card-container {
   display: flex;
   flex-direction: column;
