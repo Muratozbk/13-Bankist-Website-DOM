@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
@@ -49,6 +47,24 @@ btnScrollTo.addEventListener('click', function (e) {
 ///////////////////////////
 /// Page Navigation
 
+
+
+// 1.Add Event Listener to common parent element
+// 2.Determine what element originated the event
+
+document.querySelector('.nav__links').addEventListener
+  ('click', function (e) {
+    e.preventDefault();
+    // console.log(e.target);
+    //Matching strtegy
+    if (e.target.classList.contains('navscrl')) {
+      const id = e.target.getAttribute('href');
+      // console.log(id);
+      document.querySelector(id)
+        .scrollIntoView({ behavior: 'smooth' })
+    }
+  });
+
 // document.querySelectorAll('.nav__link').forEach
 //   (function (el) {
 //     el.addEventListener('click', function (e) {
@@ -61,26 +77,9 @@ btnScrollTo.addEventListener('click', function (e) {
 //     })
 //   });
 
-// 1.Add Event Listener to common parent element
-// 2.Determine what element originated the event
-
-document.querySelector('.nav__links').addEventListener
-  ('click', function (e) {
-    e.preventDefault();
-    // console.log(e.target);
-
-    //Matching strtegy
-    if (e.target.classList.contains('nav__link')) {
-      const id = e.target.getAttribute('href');
-      // console.log(id);
-      document.querySelector(id)
-        .scrollIntoView({ behavior: 'smooth' })
-    }
-  });
-
 //Tabbed Content - Operations__Content
-
 //// Event Delegetion
+
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
   // console.log(clicked);
@@ -97,7 +96,7 @@ tabsContainer.addEventListener('click', function (e) {
   document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 });
 
-////// Menu Fade Animations
+////// Menu Fade Animations 
 const handleHover = function (e) { //function (e, opacity)
   // console.log(this, e.currentTarget);
   if (e.target.classList.contains('nav__link')) {
@@ -176,35 +175,56 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
-  // section.classList.add('section--hidden'); ??? for now
+  section.classList.add('section--hidden') // ??? for now
 });
 
 
 //////////////
 ////////// Lazy Loading Images--
+
 const imgTarget = document.querySelectorAll('img[data-src]');
-// console.log(imgTarget);
 
 const loadImg = function (entries, observer) {
   const [entry] = entries;
-  // console.log(entry);
-
   if (!entry.isIntersecting) return;
-  // Replace src with data-src
   entry.target.src = entry.target.dataset.src;
-  //Load eventhandler - filter gone after load done
   entry.target.addEventListener('load', function () {
-    entry.target.classList.remove('lazy-img');
-  });
+    entry.target.classList.remove('lazy-img')
+  })
   observer.unobserve(entry.target);
 };
 
-const imgObserver = new IntersectionObserver(loadImg, {
-  root: null, threshold: 0,
-  rootMargin: '200px'  //erken yükleme yapması için!
-});
+const imgObserver = new IntersectionObserver(loadImg,
+  { rootMargin: '200px' });
 
-imgTarget.forEach(img => imgObserver.observe(img));
+imgTarget.forEach(img => imgObserver.observe(img))
+
+
+
+
+// const imgTarget = document.querySelectorAll('img[data-src]');
+// // console.log(imgTarget);
+
+// const loadImg = function (entries, observer) {
+//   const [entry] = entries;
+//   // console.log(entry);
+
+//   if (!entry.isIntersecting) return;
+//   // Replace src with data-src
+//   entry.target.src = entry.target.dataset.src;
+//   //Load eventhandler - filter gone after load done
+//   entry.target.addEventListener('load', function () {
+//     entry.target.classList.remove('lazy-img');
+//   });
+//   observer.unobserve(entry.target);
+// };
+
+// const imgObserver = new IntersectionObserver(loadImg, {
+//   root: null, threshold: 0,
+//   rootMargin: '200px'  //erken yükleme yapması için!
+// });
+
+// imgTarget.forEach(img => imgObserver.observe(img));
 
 
 /////

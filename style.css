@@ -158,6 +158,9 @@ img {
 
 .nav__link--btn:link,
 .nav__link--btn:visited {
+  text-align: center;
+  line-height: normal;
+  font-weight: 500;
   padding: 0.8rem 2.5rem;
   border-radius: 3rem;
   background-color: var(--color-primary);
